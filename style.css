@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -18,15 +19,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    padding: 20px;
+    min-height: 100vh;
 }
 
 .container {
     display: flex;
     flex-direction: column;
     text-align: center;
-    height: 100vh;
-    width: 100vw;    
+    width: 100%;
+    max-width: 1200px;
 }
 
 .header {
@@ -34,104 +36,89 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 50px;
+    padding: 30px 20px;
     background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
     background-blend-mode: multiply;
     color: #e9e9e9;
+    border-radius: 12px;
 }
 
 .header > h1 {
-    font-size: 60px;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
 }
 
 .header > p {
-    font-size: 22px;
+    font-size: 1.2rem;
+    line-height: 1.5;
 }
 
 .searchBox {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
     gap: 8px;
     background: #eaeaea;
     border-radius: 50px;
-    position: relative;
     margin-top: 20px;
+    padding: 8px 12px;
+}
 
+.searchInput {
+    flex: 1;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 12px 16px;
 }
 
 .searchButton {
     color: white;
-    position: absolute;
-    right: 8px;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: var(--gradient-2, linear-gradient(90deg, #333333 0%, #5e5e5e 100%));
-    border: 0;
-    display: inline-block;
-    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
-button:hover {
-    color: #fff;
+.searchButton:hover {
     background-color: #1A1A1A;
     box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
     transform: translateY(-3px);
 }
 
-button:active {
-    box-shadow: none;
-    transform: translateY(0);
-}
-
-.searchInput {
-    border: none;
-    background: none;
-    outline: none;
-    color: rgb(0, 0, 0);
-    font-size: 17px;
-    width: 600px;
-    padding: 24px 46px 24px 26px;
-}
-
 .image-gallery {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
+    margin: 30px auto;
     padding: 0 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 50px auto;
-    height: 100%;
 }
 
-.image-gallery .img-card {
-    display: flex;
+.img-card {
     position: relative;
-    align-items: center;
-    justify-content: center;
     background: #f2f2f2;
-    border-radius: 4px;
+    border-radius: 8px;
     overflow: hidden;
     aspect-ratio: 1 / 1;
-    width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.image-gallery .img-card img {
-    height: 100%;
+.img-card img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
-.image-gallery .img-card.loading img {
-    width: 80px;
-    height: 80px;
-}
-
-.image-gallery .img-card .download-btn {
+.img-card .download-btn {
     bottom: 15px;
     right: 15px;
     height: 36px;
@@ -145,71 +132,63 @@ button:active {
     position: absolute;
     opacity: 0;
     pointer-events: none;
-    transition: 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
-.image-gallery .img-card .download-btn img {
-    width: 14px;
-    height: 14px;
-}
-
-.image-gallery .img-card:not(.loading):hover .download-btn {
+.img-card:hover .download-btn {
     opacity: 1;
     pointer-events: auto;
 }
 
-@media screen and (max-width: 760px) {
-    .image-generator {
-        height: 45vh;
-        padding-top: 30px;
-        align-items: flex-start;
+@media (max-width: 1024px) {
+    .header > h1 {
+        font-size: 2rem;
     }
 
-    .image-generator h1 {
-        font-size: 1.8rem;
-    }
-
-    .image-generator p {
+    .header > p {
         font-size: 1rem;
     }
 
-    .image-generator .generate-form {
-        margin-top: 30px;
-        height: 52px;
-        display: block;
+    .searchBox {
+        flex-direction: column;
+        padding: 10px;
     }
 
-    .generate-form .controls {
-        height: 40px;
-        margin-top: 15px;
-        justify-content: end;
-        align-items: center;
+    .searchInput {
+        font-size: 0.9rem;
+        width: 100%;
     }
 
-    .generate-form .generate-btn[disabled] {
-        opacity: 1;
-    }
-
-    .generate-form .img-quantity {
-        color: #fff;
-    }
-
-    .generate-form .img-quantity option {
-        color: #000;
-    }
-
-    .image-gallery {
-        margin-top: 20px;
-    }
-
-    .image-gallery .img-card:not(.loading) .download-btn {
-        opacity: 1;
-        pointer-events: auto;
+    .searchButton {
+        width: 45px;
+        height: 45px;
     }
 }
 
-@media screen and (max-width: 500px) {
-    .image-gallery .img-card {
+@media (max-width: 768px) {
+    .header {
+        padding: 20px 15px;
+    }
+
+    .image-gallery {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header > h1 {
+        font-size: 1.5rem;
+    }
+
+    .header > p {
+        font-size: 0.9rem;
+    }
+
+    .searchInput {
+        font-size: 0.8rem;
+    }
+
+    .img-card {
         width: 100%;
     }
 }
